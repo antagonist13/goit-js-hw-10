@@ -26,3 +26,7 @@ const options = {
 };
 
 flatpickr(picker, options);
+
+if (1) {
+
+}
