@@ -30,7 +30,11 @@ const options = {
       userSelectedDate = selectedDates[0]
       if (userSelectedDate <= initTime) {
           startBtn.disabled = true 
-          alert("Please choose a date in the future")
+        //   alert("Please choose a date in the future")
+          iziToast.error({
+              message: 'Please choose a date in the future',
+              position: 'topRight'
+});
       } else {
           startBtn.disabled = false
           
@@ -41,16 +45,16 @@ const options = {
 flatpickr(picker, options);
 
 startBtn.addEventListener("click", (() => {
+    startBtn.disabled = true
     intervalId = setInterval(() => {
         const currentTime = Date.now();
         const diff = userSelectedDate - currentTime
 
+        if (diff < 1000) clearInterval(intervalId);
         days.textContent = formater(convertMs(diff).days)
         hours.textContent = formater(convertMs(diff).hours)
         minutes.textContent = formater(convertMs(diff).minutes)
         seconds.textContent = formater(convertMs(diff).seconds)
-            ;
-        if (diff < 1000) clearInterval(intervalId);
     }, 1000)
     
 }))
