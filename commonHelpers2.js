@@ -1,0 +1,2 @@
+import"./assets/modulepreload-polyfill-B5Qt9EMX.js";/* empty css                      */import"./assets/vendor-BbSUbo7J.js";const t=document.querySelector(".form").firstElementChild;t.classList.add("delay");t.lastElementChild.classList.add("delayInput");const e=document.querySelector("button");e.classList.add("create-btn");e.addEventListener("click",()=>{});
+//# sourceMappingURL=commonHelpers2.js.map
