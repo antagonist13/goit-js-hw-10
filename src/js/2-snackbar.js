@@ -16,25 +16,26 @@ const rejectedInput = document.querySelector('input[value="rejected"]');
 form.addEventListener("submit", ((event) => {
     event.preventDefault()
     let status
-    
+    const delay = delayInput.value
+  
         if (fulfilledInput.checked) { status = true };
         if (rejectedInput.checked) { status = false };
   
-      const newPromise = promiseCreator(status, delayInput.value)
+      const newPromise = promiseCreator(status, delay)
   
-        newPromise.then(smile => {
+        newPromise.then(() => {
         iziToast.success({
-            message: `${smile} Fulfilled promise in ${delayInput.value}ms`,
+            message: `✅ Fulfilled promise in ${delay}ms`,
             position: 'topRight'
         });
-            console.log(`${smile} Fulfilled promise in ${delayInput.value}ms`);
+            console.log(`✅ Fulfilled promise in ${delay}ms`);
         })
-        newPromise.catch(smile => {
+        newPromise.catch(() => {
         iziToast.error({
-            message: `${smile} Rejected promise in ${delayInput.value}ms`,
+            message: `❌ Rejected promise in ${delay}ms`,
             position: 'topRight'
         });
-            console.log(`${smile} Rejected promise in ${delayInput.value}ms`);
+            console.log(`❌ Rejected promise in ${delay}ms`);
         });
     }
 ))
@@ -43,9 +44,9 @@ function promiseCreator (status, delay) {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       if (status) {
-        resolve('✅');
+        resolve();
       } else {
-        reject('❌');
+        reject();
       }
     }, delay)
   })
