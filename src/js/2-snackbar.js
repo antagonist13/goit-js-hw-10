@@ -23,14 +23,14 @@ form.addEventListener("submit", ((event) => {
   
       const newPromise = promiseCreator(status, delay)
   
-        newPromise.then(() => {
+        newPromise.then( delay => {
         iziToast.success({
             message: `✅ Fulfilled promise in ${delay}ms`,
             position: 'topRight'
         });
             console.log(`✅ Fulfilled promise in ${delay}ms`);
         })
-        newPromise.catch(() => {
+        newPromise.catch( delay => {
         iziToast.error({
             message: `❌ Rejected promise in ${delay}ms`,
             position: 'topRight'
@@ -44,9 +44,9 @@ function promiseCreator (status, delay) {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       if (status) {
-        resolve();
+        resolve(delay);
       } else {
-        reject();
+        reject(delay);
       }
     }, delay)
   })
