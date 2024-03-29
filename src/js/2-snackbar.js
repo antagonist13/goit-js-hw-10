@@ -8,43 +8,46 @@ delayInput.classList.add('delayInput')
 
 const createbtn = document.querySelector("button")
 createbtn.classList.add("create-btn")
-
+const form = document.querySelector(".form")
 const fulfilledInput = document.querySelector('input[value="fulfilled"]');
 const rejectedInput = document.querySelector('input[value="rejected"]');
 
 
-createbtn.addEventListener("click", ((event) => {
+form.addEventListener("submit", ((event) => {
     event.preventDefault()
     let status
-    setTimeout(() => {
+    
         if (fulfilledInput.checked) { status = true };
         if (rejectedInput.checked) { status = false };
-
-        promiseCreator(status).then(smile => {
+  
+      const newPromise = promiseCreator(status, delayInput.value)
+  
+        newPromise.then(smile => {
         iziToast.success({
             message: `${smile} Fulfilled promise in ${delayInput.value}ms`,
             position: 'topRight'
         });
             console.log(`${smile} Fulfilled promise in ${delayInput.value}ms`);
         })
-        promiseCreator(status).catch(smile => {
+        newPromise.catch(smile => {
         iziToast.error({
             message: `${smile} Rejected promise in ${delayInput.value}ms`,
             position: 'topRight'
         });
             console.log(`${smile} Rejected promise in ${delayInput.value}ms`);
         });
-    }, delayInput.value)
-}))
+    }
+))
 
-function promiseCreator (status) {
-            const promise = new Promise((resolve, reject) => {
+function promiseCreator (status, delay) {
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
       if (status) {
         resolve('✅');
       } else {
         reject('❌');
       }
-    });
-  ;
-  return promise;
-}
+    }, delay)
+  })
+    return promise;
+  }
